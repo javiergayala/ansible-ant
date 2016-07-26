@@ -8,34 +8,18 @@
     that:
       - ansible_os_family in ['Archlinux', 'Debian', 'RedHat', 'Suse']
 
-
-- name: Install Ant download directory (local)
+- name: Download Ant Binary Package
   tags: ant
-  local_action: file
-    state=directory
-    owner=0
-    group=0
-    mode=0755
-    dest={{ ansible_data_path }}
-
-
-- name: Download Ant (local)
-  tags: ant
-  local_action: get_url
-    dest={{ ansible_data_path }}/{{ ant_redis_filename }}
-    url={{ ant_mirror }}/{{ ant_redis_filename }}
-    owner=0
-    group=0
-    mode=0644
-#    sha512sum={{ ant_redis_sha512sum }}
+  get_url:
+    url: {{ ant_mirror }}/{{ ant_redis_filename }}
+    dest: {{ ant_tmp_path }}/{{ ant_redis_filename }}
 
 
 - name: Install Ant installation directory
   tags: ant
   file:
     state=directory
-    owner=0
-    group=0
+    owner={{ ansible_user_id }}
     mode=0755
     dest={{ ant_install_dir }}
 
@@ -43,7 +27,7 @@
 - name: Install Ant
   tags: ant
   unarchive:
-    src={{ ansible_data_path }}/{{ ant_redis_filename }}
+    src={{ ant_tmp_path }}/{{ ant_redis_filename }}
     dest={{ ant_install_dir }}
 
 
