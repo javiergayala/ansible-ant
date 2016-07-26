@@ -11,8 +11,8 @@
 - name: Download Ant Binary Package
   tags: ant
   get_url:
-    url: {{ ant_mirror }}/{{ ant_redis_filename }}
-    dest: {{ ant_tmp_path }}/{{ ant_redis_filename }}
+    url: "{{ ant_mirror }}/{{ ant_redis_filename }}""
+    dest: "{{ ant_tmp_path }}/{{ ant_redis_filename }}"
 
 
 - name: Install Ant installation directory
