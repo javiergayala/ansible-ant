@@ -29,6 +29,7 @@
   unarchive:
     src={{ ant_tmp_path }}/{{ ant_redis_filename }}
     dest={{ ant_install_dir }}
+    copy=no
 
 
 - name: Install Ant bin directory
